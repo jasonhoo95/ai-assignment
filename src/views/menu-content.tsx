@@ -155,7 +155,7 @@ export default function MenuContent() {
 								(o, key) => {
 									return (
 										<div
-											className="font-bold text-[#667085]"
+											className="font-bold text-[#667085] hover:text-black cursor-pointer"
 											key={
 												key
 											}
@@ -177,7 +177,7 @@ export default function MenuContent() {
 					<Card className="my-5 p-[20px]">
 						<div className="flex justify-between">
 							<div className="text-[18px] font-bold">
-								Sales report
+								Store traffic
 							</div>
 							<div>
 								<Button
@@ -195,7 +195,7 @@ export default function MenuContent() {
 								(o, key) => {
 									return (
 										<div
-											className="font-bold text-[#667085]"
+											className="font-bold text-[#667085] hover:text-black cursor-pointer"
 											key={
 												key
 											}

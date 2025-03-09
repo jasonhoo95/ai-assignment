@@ -13,6 +13,10 @@ export default function Home() {
 	const RenderChildren = () => {
 		return (
 			<div className="flex flex-col h-[100vh] w-full overflow-y-auto">
+				<img
+					className="w-[32px] h-[32px] mb-3"
+					src="/purple.jpeg"
+				/>
 				<Input
 					type="text"
 					placeholder="Search"
@@ -31,7 +35,7 @@ export default function Home() {
 								title={
 									<div className="text-lg font-semibold text-[15px] gap-[10px] cursor-pointer min-w-[200px] flex items-center">
 										<Icon
-											className="w-[20px] h-[20px] mb-[3px]"
+											className="nav-icon"
 											icon={
 												o.icon
 											}
@@ -64,7 +68,7 @@ export default function Home() {
 									key={key}
 								>
 									<Icon
-										className="w-[20px] h-[20px] mb-[3px]"
+										className="nav-icon"
 										icon={
 											o.icon
 										}

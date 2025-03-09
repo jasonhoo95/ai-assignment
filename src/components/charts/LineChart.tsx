@@ -72,6 +72,8 @@ const LineChart = () => {
 				"Dec",
 			],
 			labels: { style: { colors: "#aaa" } },
+			axisBorder: { show: false },
+			axisTicks: { show: false },
 		},
 		yaxis: { show: false },
 		grid: { show: false },
