@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import TabContent from "@/components/ui/tabContent";
@@ -7,10 +9,27 @@ import { DatePickerWithRange } from "@/components/ui/datePickerRange";
 import AvatarProfile from "@/components/ui/avatarProfile";
 import { personItems } from "@/config/menuContent";
 import LineChart from "@/components/charts/LineChart";
-import BarChart from "@/components/charts/BarChart";
 import { Badge } from "@/components/ui/badge";
 import { chartDateConfig } from "@/config/menuContent";
+import dynamic from "next/dynamic";
+
 export default function MenuContent() {
+	// Disable SSR for Chart.js
+	const BarChart = dynamic(
+		() =>
+			import(
+				"@/components/charts/BarChart"
+			),
+		{ ssr: false }
+	);
+	const LineChart = dynamic(
+		() =>
+			import(
+				"@/components/charts/LineChart"
+			),
+		{ ssr: false }
+	);
+
 	const RenderTag = ({ item }: any) => {
 		if (item.type === "success") {
 			return (

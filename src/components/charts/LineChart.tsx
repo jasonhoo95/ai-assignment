@@ -1,142 +1,93 @@
 "use client";
 
-import React, {
-	useEffect,
-	useRef,
-	useState,
-} from "react";
-import { Line } from "react-chartjs-2";
-import {
-	Chart as ChartJS,
-	LineElement,
-	PointElement,
-	LinearScale,
-	CategoryScale,
-	Tooltip,
-	Legend,
-	Filler,
-} from "chart.js";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import { ApexOptions } from "apexcharts";
 
-// Register required chart components
-ChartJS.register(
-	LineElement,
-	PointElement,
-	LinearScale,
-	CategoryScale,
-	Tooltip,
-	Legend,
-	Filler
+// Dynamically import ApexCharts to avoid SSR issues in Next.js
+const ApexChart = dynamic(
+	() => import("react-apexcharts"),
+	{ ssr: false }
 );
 
 const LineChart = () => {
-	const chartRef = useRef(null);
-	const [gradient, setGradient] = useState<
-		string | CanvasGradient
-	>("rgba(102, 51, 153, 0.06)");
-
-	useEffect(() => {
-		if (chartRef.current) {
-			const ctx = (
-				chartRef.current as any
-			).canvas.getContext("2d");
-			const gradientFill =
-				ctx.createLinearGradient(
-					0,
-					0,
-					0,
-					300
-				);
-			gradientFill.addColorStop(
-				0,
-				"rgba(127, 86, 217, 0.05)"
-			); // Darker purple at the top
-			gradientFill.addColorStop(
-				1,
-				"rgba(127, 86, 217, 0)"
-			); // Fades out to transparent
-
-			setGradient(gradientFill);
-		}
-	}, []);
-
-	const data = {
-		labels: [
-			"Jan",
-			"Feb",
-			"Mar",
-			"Apr",
-			"May",
-			"Jun",
-			"Jul",
-			"Aug",
-			"Sep",
-			"Oct",
-			"Nov",
-			"Dec",
-		],
-		datasets: [
-			{
-				label: "Upper Line",
-				data: [
-					50, 55, 53, 49, 57, 54, 60,
-					65, 62, 68, 64, 75,
-				],
-				borderColor: "#7F56D9", // Purple border
-				backgroundColor: gradient, // Light purple fill
-				tension: 0.6, // Makes it smooth
-				fill: "start",
-				pointRadius: 0,
-				borderWidth: 1,
-			},
-			{
-				label: "Lower Line",
-				data: [
-					40, 42, 41, 45, 50, 52, 55,
-					54, 56, 57, 58, 60,
-				],
-				borderColor: "#7F56D9", // Slightly transparent purple
-				backgroundColor: "transparent", // Lighter purple fill
-				tension: 0.6,
-				pointRadius: 0,
-				fill: false,
-				borderWidth: 1,
-			},
-		],
-	};
-
-	const options = {
-		responsive: true,
-		maintainAspectRatio: false,
-		plugins: {
-			legend: {
-				display: false, // Hide legend if not needed
-			},
+	// Chart data
+	const [series, setSeries] = useState([
+		{
+			name: "Upper Line",
+			data: [
+				50, 55, 53, 49, 57, 54, 60, 65,
+				62, 68, 64, 75,
+			],
 		},
-		scales: {
-			x: {
-				grid: {
-					display: false,
-				},
-			},
-			y: {
-				display: false,
-				grid: {
-					display: true, // Hide Y-axis grid lines
-					drawBorder: false, // Hide the left axis line
-				},
-				ticks: {
-					display: false, // Hide Y-axis labels (numbers)
-				},
-			},
+		{
+			name: "Lower Line",
+			data: [
+				40, 42, 41, 45, 50, 52, 55, 54,
+				56, 57, 58, 60,
+			],
 		},
+	]);
+
+	const options: ApexOptions = {
+		chart: {
+			type: "area",
+			toolbar: { show: false },
+			zoom: { enabled: false },
+		},
+		stroke: {
+			curve: "smooth",
+			width: [2, 2], // Line thickness
+		},
+		fill: {
+			type: ["gradient", "none"], // Apply gradient only to Upper Line
+			gradient: {
+				shade: "light",
+				type: "vertical",
+				shadeIntensity: 0.5,
+				gradientToColors: [
+					"rgba(127, 86, 217, 0)",
+				], // Fades to transparent
+				opacityFrom: 0.4, // Stronger opacity at the top
+				opacityTo: 0,
+				stops: [0, 100],
+			},
+			opacity: [1, 0],
+		},
+		colors: ["#7F56D9", "#7F56D9"], // Purple color
+		dataLabels: { enabled: false },
+		xaxis: {
+			categories: [
+				"Jan",
+				"Feb",
+				"Mar",
+				"Apr",
+				"May",
+				"Jun",
+				"Jul",
+				"Aug",
+				"Sep",
+				"Oct",
+				"Nov",
+				"Dec",
+			],
+			labels: { style: { colors: "#aaa" } },
+		},
+		yaxis: { show: false },
+		grid: { show: false },
+		legend: { show: false },
+		tooltip: { theme: "dark" },
 	};
 
 	return (
-		<Line
-			data={data}
-			ref={chartRef}
-			options={options}
-		/>
+		<div className="w-full h-[300px]">
+			<ApexChart
+				options={options}
+				series={series}
+				type="area"
+				height={300}
+			/>
+		</div>
 	);
 };
 

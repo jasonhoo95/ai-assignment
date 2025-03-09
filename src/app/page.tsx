@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { navMenuItem } from "@/config/sideNav";
 import NavGroup from "@/components/navItem/navGroup";

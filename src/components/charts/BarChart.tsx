@@ -6,6 +6,7 @@ import {
 	Chart as ChartJS,
 	BarElement,
 	CategoryScale,
+	BarController,
 	LinearScale,
 	Tooltip,
 	Legend,
@@ -14,6 +15,7 @@ import {
 // Register required chart components
 ChartJS.register(
 	BarElement,
+	BarController,
 	CategoryScale,
 	LinearScale,
 	Tooltip,
