@@ -1,0 +1,17 @@
+.side-nav-content {
+	padding-top: 50px;
+	width: 100%;
+	padding: 30px;
+	height: 100vh;
+	overflow-y: auto;
+}
+
+.nav-item-container {
+	margin-left: 20px;
+	user-select: none;
+	li {
+		font-size: 16px;
+		font-weight: 500;
+		padding: 10px;
+	}
+}
