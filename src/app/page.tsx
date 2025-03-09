@@ -12,7 +12,17 @@ export default function Home() {
 	const RenderChildren = () => {
 		return (
 			<div className="flex flex-col h-[100vh] w-full overflow-y-auto">
-				<Input />
+				<Input
+					type="text"
+					placeholder="Search"
+					className="pl-[30px]"
+					favicon={
+						<Icon
+							className="w-[20px] h-[20px]"
+							icon="ic:round-search"
+						/>
+					}
+				></Input>
 				{navMenuItem.map((o, key) => {
 					return (
 						<div key={key}>

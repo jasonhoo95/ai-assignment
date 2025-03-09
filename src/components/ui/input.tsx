@@ -29,7 +29,7 @@ function Input({
 					className
 				)}
 			/>
-			<div className="absolute left-[10px] top-[5px]">
+			<div className="absolute left-[10px] top-[10px]">
 				{favicon}
 			</div>
 		</div>
